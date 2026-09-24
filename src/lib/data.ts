@@ -74,8 +74,10 @@ export const blankProfile: Profile = {
 
 export const skills = [
   { category: "Frontend", items: ["React", "Next.js", "Flutter", "Tailwind CSS", "TypeScript"] },
-  { category: "Backend", items: ["Node.js", "Go", "Express.js", "REST API", "GraphQL"] },
-  { category: "Database", items: ["PostgreSQL", "MongoDB", "Supabase", "Firebase", "Redis"] },
-  { category: "DevOps", items: ["Docker", "Kubernetes", "AWS", "CI/CD", "Linux"] },
-  { category: "Tools", items: ["Git", "Figma", "Jira", "VS Code", "Postman"] },
+  { category: "Backend", items: ["Node.js", "REST API", "Laravel"] },
+  { category: "Database", items: ["PostgreSQL", "Supabase", "Firebase", "Redis", "MySQL"] },
+  { category: "DevOps", items: ["Docker", "Linux", "Virtualization", "Cloud"] },
+  { category: "Tools", items: ["Git", "Figma", "VS Code", "Postman"] },
+  { category: "Networks", items: ["Routing", "Switching", "VLAN", "Policy Based Rule", "Packet Capture", "User Management", "Wireless"] },
+  { category: "Familiar Device", items: ["Mikrotik", "Sophos", "Fortigate", "Ruckus", "UniFi", "Ruijie"] },
 ];
