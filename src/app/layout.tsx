@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Instrument_Serif, Space_Mono, Syne } from "next/font/google";
 import { profile } from "@/lib/data";
+import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
 const syne = Syne({
@@ -30,7 +31,7 @@ const spaceMono = Space_Mono({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
