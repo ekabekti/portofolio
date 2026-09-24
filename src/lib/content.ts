@@ -72,12 +72,35 @@ export async function getPublicContent(): Promise<PublicContent> {
   if (projectsResult.error) console.error("Failed to load projects", projectsResult.error.message);
   if (certificatesResult.error) console.error("Failed to load certificates", certificatesResult.error.message);
 
+  const projects = ((projectsResult.data as Project[] | null) ?? []).map((project) => ({
+    ...project,
+    gallery: Array.isArray(project.gallery) ? project.gallery : [],
+  }));
+
   return {
     profile: profileResult.data ? normalizeProfile(profileResult.data) : null,
-    projects: (projectsResult.data as Project[] | null) ?? [],
+    projects,
     certificates: (certificatesResult.data as Certificate[] | null) ?? [],
     configured: true,
   };
+}
+
+export async function getCertificateById(id: string) {
+  const supabase = getPublicSupabase();
+  if (!isSupabaseConfigured() || !supabase) return null;
+
+  const { data, error } = await supabase
+    .from("certificates")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (error) {
+    console.error("Failed to load certificate", id, error.message);
+    return null;
+  }
+
+  return (data as Certificate | null) ?? null;
 }
 
 export async function getProjectBySlug(slug: string) {
@@ -96,5 +119,7 @@ export async function getProjectBySlug(slug: string) {
     return null;
   }
 
-  return (data as Project | null) ?? null;
+  if (!data) return null;
+  const project = data as Project;
+  return { ...project, gallery: Array.isArray(project.gallery) ? project.gallery : [] };
 }

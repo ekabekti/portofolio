@@ -4,7 +4,7 @@ import { getSiteUrl } from "@/lib/site";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();
-  const { projects } = await getPublicContent();
+  const { projects, certificates } = await getPublicContent();
   const now = new Date();
 
   return [
@@ -14,6 +14,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: project.is_featured ? 0.9 : 0.7,
+    })),
+    ...certificates.map((certificate) => ({
+      url: `${siteUrl}/sertifikat/${certificate.id}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
     })),
   ];
 }

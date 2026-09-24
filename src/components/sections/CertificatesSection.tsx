@@ -1,5 +1,6 @@
 import SectionWrapper, { SectionTitle } from "@/components/ui/SectionWrapper";
 import Reveal from "@/components/ui/Reveal";
+import Link from "next/link";
 import type { Certificate } from "@/lib/data";
 
 interface CertificatesSectionProps {
@@ -41,12 +42,8 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
             </div>
           )}
           {certificates.map((certificate, index) => {
-            const Row = certificate.credential_url ? "a" : "div";
-            const linkProps = certificate.credential_url
-              ? { href: certificate.credential_url, target: "_blank" as const, rel: "noopener noreferrer" }
-              : {};
             return (
-              <Row key={certificate.id} className="certificate-row" {...linkProps}>
+              <Link key={certificate.id} className="certificate-row" href={`/sertifikat/${certificate.id}`}>
                 <span className="certificate-row__index">0{index + 1}</span>
                 <div className="certificate-row__body">
                   <span className="certificate-row__type">Professional credential</span>
@@ -58,7 +55,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                   <time dateTime={certificate.issue_date}>{formatDate(certificate.issue_date)}</time>
                 </span>
                 <span className="certificate-row__arrow" aria-hidden="true">↗</span>
-              </Row>
+              </Link>
             );
           })}
         </Reveal>

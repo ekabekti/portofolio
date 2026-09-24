@@ -29,6 +29,7 @@ const emptyProject = {
   summary: "",
   description: "",
   cover_image_url: "",
+  gallery: [] as string[],
   role: "",
   tech_stack: "",
   project_url: "",
@@ -139,6 +140,7 @@ export default function AdminDashboard({
       summary: projectForm.summary,
       description: projectForm.description,
       cover_image_url: projectForm.cover_image_url,
+      gallery: projectForm.gallery,
       role: projectForm.role,
       tech_stack: projectForm.tech_stack.split(",").map((item) => item.trim()).filter(Boolean),
       project_url: projectForm.project_url || null,
@@ -173,6 +175,7 @@ export default function AdminDashboard({
       summary: project.summary,
       description: project.description,
       cover_image_url: project.cover_image_url,
+      gallery: project.gallery ?? [],
       role: project.role,
       tech_stack: project.tech_stack.join(", "),
       project_url: project.project_url ?? "",
@@ -182,6 +185,20 @@ export default function AdminDashboard({
       display_order: project.display_order,
     });
     setActiveTab("projects");
+  }
+
+  function moveGalleryImage(index: number, direction: -1 | 1) {
+    setProjectForm((current) => {
+      const gallery = [...current.gallery];
+      const target = index + direction;
+      if (target < 0 || target >= gallery.length) return current;
+      [gallery[index], gallery[target]] = [gallery[target], gallery[index]];
+      return { ...current, gallery };
+    });
+  }
+
+  function removeGalleryImage(index: number) {
+    setProjectForm((current) => ({ ...current, gallery: current.gallery.filter((_, i) => i !== index) }));
   }
 
   async function deleteProject(id: string) {
@@ -318,10 +335,12 @@ export default function AdminDashboard({
               <div className="form-field"><label htmlFor="profile-email">Email</label><input id="profile-email" type="email" value={profile.email} onChange={(event) => setProfile({ ...profile, email: event.target.value })} required /></div>
               <div className="form-field admin-editor__wide"><label htmlFor="profile-tagline">Tagline</label><input id="profile-tagline" value={profile.tagline} onChange={(event) => setProfile({ ...profile, tagline: event.target.value })} required /></div>
               <div className="form-field"><label htmlFor="profile-location">Location</label><input id="profile-location" value={profile.location} onChange={(event) => setProfile({ ...profile, location: event.target.value })} /></div>
+              <div className="form-field"><label htmlFor="profile-phone">Nomor HP / WhatsApp</label><input id="profile-phone" value={profile.phone ?? ""} onChange={(event) => setProfile({ ...profile, phone: event.target.value })} placeholder="+62 ..." autoComplete="tel" /></div>
               <div className="form-field"><label htmlFor="profile-photo">Photo URL</label><input id="profile-photo" value={profile.photo_url} onChange={(event) => setProfile({ ...profile, photo_url: event.target.value })} placeholder="Supabase public URL" /><StorageUploader bucket="profile-photos" value={profile.photo_url} onChange={(url) => setProfile({ ...profile, photo_url: url })} label="Upload portrait" accept="image/*" maxSizeMb={5} /></div>
               <div className="form-field admin-editor__wide"><label htmlFor="profile-bio">Bio</label><textarea id="profile-bio" rows={5} value={profile.bio} onChange={(event) => setProfile({ ...profile, bio: event.target.value })} /></div>
               <div className="form-field"><label htmlFor="profile-linkedin">LinkedIn</label><input id="profile-linkedin" value={profile.social_links.linkedin ?? ""} onChange={(event) => setProfile({ ...profile, social_links: { ...profile.social_links, linkedin: event.target.value } })} /></div>
               <div className="form-field"><label htmlFor="profile-github">GitHub</label><input id="profile-github" value={profile.social_links.github ?? ""} onChange={(event) => setProfile({ ...profile, social_links: { ...profile.social_links, github: event.target.value } })} /></div>
+              <div className="form-field"><label htmlFor="profile-whatsapp">Link WhatsApp</label><input id="profile-whatsapp" value={profile.social_links.whatsapp ?? ""} onChange={(event) => setProfile({ ...profile, social_links: { ...profile.social_links, whatsapp: event.target.value } })} placeholder="https://wa.me/62..." /></div>
               <div className="form-field admin-editor__wide"><label htmlFor="profile-cv">CV URL</label><input id="profile-cv" value={profile.cv_url} onChange={(event) => setProfile({ ...profile, cv_url: event.target.value })} placeholder="Supabase cv-files public URL" /><StorageUploader bucket="cv-files" value={profile.cv_url} onChange={(url) => setProfile({ ...profile, cv_url: url })} label="Upload CV" accept="application/pdf" maxSizeMb={10} /></div>
             </div>
           </form>
@@ -335,6 +354,38 @@ export default function AdminDashboard({
               <div className="form-field"><label htmlFor="project-slug">Slug</label><input id="project-slug" value={projectForm.slug} onChange={(event) => setProjectForm({ ...projectForm, slug: slugify(event.target.value) })} placeholder="auto-slug" /></div>
               <div className="form-field admin-editor__wide"><label htmlFor="project-summary">Summary</label><textarea id="project-summary" rows={3} value={projectForm.summary} onChange={(event) => setProjectForm({ ...projectForm, summary: event.target.value })} required /></div>
               <div className="form-field admin-editor__wide"><label htmlFor="project-cover">Cover image</label><input id="project-cover" value={projectForm.cover_image_url} onChange={(event) => setProjectForm({ ...projectForm, cover_image_url: event.target.value })} placeholder="Supabase project-images URL" /><StorageUploader bucket="project-images" value={projectForm.cover_image_url} onChange={(url) => setProjectForm({ ...projectForm, cover_image_url: url })} label="Upload cover" accept="image/*" maxSizeMb={5} /></div>
+              <div className="form-field admin-editor__wide">
+                <span className="gallery-manager__label" id="project-gallery-label">Gallery (multi image) — {projectForm.gallery.length} gambar</span>
+                {projectForm.gallery.length > 0 && (
+                  <div className="gallery-manager" role="group" aria-labelledby="project-gallery-label">
+                    {projectForm.gallery.map((url, index) => (
+                      <div className="gallery-manager__thumb" key={`${url}-${index}`}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={url} alt={`Galeri ${index + 1}`} />
+                        <div className="gallery-manager__actions">
+                          <button type="button" onClick={() => moveGalleryImage(index, -1)} disabled={index === 0} aria-label={`Geser gambar ${index + 1} ke kiri`}>←</button>
+                          <button type="button" onClick={() => moveGalleryImage(index, 1)} disabled={index === projectForm.gallery.length - 1} aria-label={`Geser gambar ${index + 1} ke kanan`}>→</button>
+                          <button type="button" onClick={() => removeGalleryImage(index)} aria-label={`Hapus gambar ${index + 1}`}>✕</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <StorageUploader
+                  bucket="project-images"
+                  value=""
+                  onChange={(url) => setProjectForm((current) => ({ ...current, gallery: [...current.gallery, url] }))}
+                  label="Tambah gambar gallery"
+                  accept="image/*"
+                  maxSizeMb={5}
+                  aspects={[
+                    { label: "16 : 9", value: 16 / 9 },
+                    { label: "4 : 3", value: 4 / 3 },
+                    { label: "1 : 1", value: 1 },
+                    { label: "Bebas", value: null },
+                  ]}
+                />
+              </div>
               <div className="form-field admin-editor__wide"><label htmlFor="project-description">Description</label><textarea id="project-description" rows={5} value={projectForm.description} onChange={(event) => setProjectForm({ ...projectForm, description: event.target.value })} /></div>
               <div className="form-field"><label htmlFor="project-role">Role</label><input id="project-role" value={projectForm.role} onChange={(event) => setProjectForm({ ...projectForm, role: event.target.value })} /></div>
               <div className="form-field"><label htmlFor="project-tech">Tech stack (comma separated)</label><input id="project-tech" value={projectForm.tech_stack} onChange={(event) => setProjectForm({ ...projectForm, tech_stack: event.target.value })} placeholder="Next.js, Supabase" /></div>

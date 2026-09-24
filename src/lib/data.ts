@@ -27,6 +27,7 @@ export interface Project {
   summary: string;
   description: string;
   cover_image_url: string;
+  gallery: string[];
   tech_stack: string[];
   project_url: string | null;
   repo_url: string | null;
