@@ -116,7 +116,7 @@ export default function AdminDashboard({
       cv_url: profile.cv_url,
       social_links: profile.social_links,
     };
-    const profileQuery = initialProfile
+    const profileQuery = profile.id
       ? client.from("profile").update(profilePayload).eq("id", profile.id)
       : client.from("profile").insert(profilePayload);
     const { data, error } = await profileQuery.select().single();

@@ -59,7 +59,7 @@ export async function getPublicContent(): Promise<PublicContent> {
   }
 
   const [profileResult, projectsResult, certificatesResult] = await Promise.all([
-    supabase.from("profile").select("*").limit(1).maybeSingle(),
+    supabase.from("profile").select("*").order("updated_at", { ascending: false }).limit(1).maybeSingle(),
     supabase
       .from("projects")
       .select("*")
