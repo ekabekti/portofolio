@@ -25,7 +25,7 @@ export default function Footer({ profile }: FooterProps) {
         </p>
       </div>
       <div className="container site-footer__bottom">
-        <span>© {year} {profile.full_name} / Indonesia</span>
+        <span>© {year} {profile.full_name} / {profile.location}</span>
         <nav className="site-footer__links" aria-label="Navigasi footer">
           {footerLinks.map((link) => <a key={link.href} href={link.href}>{link.label}</a>)}
         </nav>

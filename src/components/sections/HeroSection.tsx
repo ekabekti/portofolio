@@ -74,7 +74,7 @@ export default function HeroSection({ profile }: HeroSectionProps) {
             </div>
             <div className="hero-meta__item">
               <span className="hero-meta__value">ID / 07</span>
-              <span className="hero-meta__label">Based in Indonesia</span>
+              <span className="hero-meta__label">Based in Jawa Timur</span>
             </div>
           </Reveal>
         </div>

@@ -18,7 +18,7 @@ select
   '',
   'ekabekti@example.com',
   '+62 812 3456 7890',
-  'Indonesia',
+  'Jawa Timur, Indonesia',
   '{"linkedin": "https://linkedin.com/in/ekabekti", "github": "https://github.com/ekabekti", "whatsapp": "https://wa.me/6281234567890"}'::jsonb
 where not exists (select 1 from public.profile);
 
