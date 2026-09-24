@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 const navLinks = [
   { label: "Tentang", href: "#tentang", index: "01" },
-  { label: "Karya", href: "#proyek", index: "02" },
+  { label: "Project", href: "#proyek", index: "02" },
   { label: "Kredensial", href: "#sertifikat", index: "03" },
   { label: "Kontak", href: "#kontak", index: "04" },
 ];

@@ -30,7 +30,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
       {visibleProjects.length === 0 ? (
         <Reveal className="empty-state">
           <span className="mono-label">Case file / empty</span>
-          <p>Belum ada karya yang dipublikasikan. Kembali lagi nanti — atau mulai percakapan tentang sistem yang ingin kamu bangun.</p>
+          <p>Belum ada project yang dipublikasikan. Kembali lagi nanti — atau mulai percakapan tentang sistem yang ingin kamu bangun.</p>
         </Reveal>
       ) : (
       <Reveal className="project-grid" y={30}>

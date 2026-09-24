@@ -59,7 +59,7 @@ export default function HeroSection({ profile }: HeroSectionProps) {
           </Reveal>
 
           <Reveal delay={0.24} className="hero-actions">
-            <SignalButton href="#proyek">Lihat karya</SignalButton>
+            <SignalButton href="#proyek">Lihat project</SignalButton>
             <GhostButton href="#tentang">Kenali saya</GhostButton>
           </Reveal>
 

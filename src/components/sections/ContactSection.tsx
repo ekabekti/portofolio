@@ -75,7 +75,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
       <SectionTitle
         index="05"
         eyebrow="Open channel"
-        subtitle="Jika Anda sedang membangun sesuatu yang penting, saya ingin mendengar konteksnya—terutama bagian yang belum punya jawaban yang rapi."
+        subtitle="Jika Anda sedang membangun sesuatu yang penting, saya ingin mendengar konteksnya—terutama bagian yang belum punya jawaban solutif."
       >
         Have a hard problem? <em>Good.</em>
       </SectionTitle>

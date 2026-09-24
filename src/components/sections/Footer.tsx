@@ -6,7 +6,7 @@ interface FooterProps {
 
 const footerLinks = [
   { label: "Tentang", href: "#tentang" },
-  { label: "Karya", href: "#proyek" },
+  { label: "Project", href: "#proyek" },
   { label: "Kredensial", href: "#sertifikat" },
   { label: "Kontak", href: "#kontak" },
 ];
