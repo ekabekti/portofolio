@@ -3661,6 +3661,135 @@ canvas {
   color: var(--accent-warn);
 }
 
+.crop-modal {
+  position: fixed;
+  z-index: 90;
+  inset: 0;
+  display: grid;
+  padding: 1.5rem;
+  place-items: center;
+  background: rgba(8, 9, 8, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.crop-modal__card {
+  width: min(100%, 640px);
+  max-height: min(90svh, 860px);
+  overflow-y: auto;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-deep);
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.5);
+}
+
+.crop-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem 1.2rem 0;
+}
+
+.crop-modal__header h3 {
+  margin-top: 0.5rem;
+  color: var(--text-primary);
+  font-size: 1.6rem;
+  letter-spacing: -0.05em;
+}
+
+.crop-modal__close {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  cursor: pointer;
+  border: 1px solid var(--border-glass);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.crop-modal__close:hover {
+  border-color: var(--accent-warn);
+  color: var(--accent-warn);
+}
+
+.crop-modal__aspects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 1rem 1.2rem 0;
+}
+
+.crop-modal__aspects button {
+  padding: 0.4rem 0.65rem;
+  cursor: pointer;
+  border: 1px solid var(--border-glass);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+}
+
+.crop-modal__aspects button.is-active,
+.crop-modal__aspects button:hover {
+  border-color: var(--accent-signal);
+  color: var(--accent-signal);
+}
+
+.crop-modal__canvas {
+  padding: 1.2rem;
+}
+
+.crop-modal__canvas .ReactCrop {
+  max-height: 52svh;
+}
+
+.crop-modal__canvas img {
+  max-height: 52svh;
+  object-fit: contain;
+}
+
+.crop-modal .storage-uploader__error {
+  display: block;
+  padding: 0 1.2rem;
+}
+
+.crop-modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 1.2rem 1.2rem;
+}
+
+.crop-modal__hint {
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.04em;
+}
+
+.crop-modal__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+@media (max-width: 560px) {
+  .crop-modal {
+    padding: 0.75rem;
+  }
+
+  .crop-modal__footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .crop-modal__actions {
+    justify-content: flex-end;
+  }
+}
+
 /* ── Project detail ─────────────────────────────────────────── */
 .project-card__title a {
   transition: color 250ms ease;
