@@ -1351,9 +1351,22 @@ canvas {
 
 .about-profile {
   position: relative;
+  overflow: hidden;
   padding: 1.3rem;
   border: 1px solid var(--border-glass);
-  background: linear-gradient(150deg, rgba(239, 238, 232, 0.06), transparent 60%);
+  background:
+    radial-gradient(circle at 85% 8%, rgba(215, 250, 95, 0.07), transparent 45%),
+    linear-gradient(rgba(239, 238, 232, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(239, 238, 232, 0.035) 1px, transparent 1px),
+    linear-gradient(150deg, rgba(239, 238, 232, 0.06), transparent 60%);
+  background-size: auto, 28px 28px, 28px 28px, auto;
+  transition: border-color 350ms ease, transform 450ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 350ms ease;
+}
+
+.about-profile:hover {
+  border-color: var(--border-strong);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(215, 250, 95, 0.06);
+  transform: translateY(-4px);
 }
 
 .about-profile::after {
@@ -1368,29 +1381,140 @@ canvas {
   opacity: 0.8;
 }
 
-.profile-monogram,
-.profile-photo {
-  width: 88px;
-  height: 88px;
-  margin-bottom: 2.7rem;
+.about-profile__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.about-profile__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--accent-signal);
+}
+
+.profile-photo-card {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  margin-bottom: 1.8rem;
+  border: 1px solid var(--border-strong);
+}
+
+.profile-photo-card__image {
+  position: absolute;
+  inset: 0;
+  background-position: center 20%;
+  background-size: cover;
+  filter: grayscale(0.35) contrast(1.06) brightness(0.94);
+  animation: portrait-drift 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.about-profile:hover .profile-photo-card__image {
+  filter: grayscale(0.15) contrast(1.08) brightness(1);
+}
+
+.profile-photo-card__scan {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  pointer-events: none;
+  animation: portrait-scan 7s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+.profile-photo-card__scan::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  content: "";
+  background: var(--accent-signal);
+  box-shadow: 0 0 16px rgba(215, 250, 95, 0.5);
+  opacity: 0.6;
+}
+
+.profile-photo-card__tag {
+  position: absolute;
+  bottom: 0.7rem;
+  left: 0.7rem;
+  padding: 0.3rem 0.5rem;
+  background: rgba(13, 14, 12, 0.72);
+  color: var(--accent-signal);
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.14em;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .profile-monogram {
+  position: relative;
   display: grid;
+  width: 132px;
+  height: 132px;
+  margin-bottom: 2.2rem;
   place-items: center;
   border: 1px solid var(--accent-signal);
+  background:
+    radial-gradient(circle, rgba(215, 250, 95, 0.12), transparent 65%),
+    linear-gradient(150deg, rgba(215, 250, 95, 0.08), transparent 60%);
   color: var(--accent-signal);
   font-family: var(--font-display);
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 600;
   letter-spacing: -0.12em;
 }
 
-.profile-photo {
-  border: 1px solid var(--accent-signal);
-  background-position: center;
-  background-size: cover;
-  filter: saturate(0.8) contrast(1.05);
+.profile-monogram::before {
+  position: absolute;
+  inset: -12px;
+  content: "";
+  border: 1px dashed rgba(215, 250, 95, 0.35);
+  border-radius: 50%;
+  animation: portrait-orbit 24s linear infinite;
+}
+
+.profile-monogram span {
+  text-shadow: 0 0 24px rgba(215, 250, 95, 0.35);
+}
+
+.about-profile__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.8rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-soft);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+}
+
+.about-profile__foot a {
+  overflow: hidden;
+  color: var(--accent-signal);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.about-profile__foot span:last-child {
+  color: var(--text-faint);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .profile-meta {

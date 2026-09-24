@@ -23,15 +23,23 @@ export default function AboutSection({ profile }: AboutSectionProps) {
         </Reveal>
 
         <Reveal delay={0.12} className="about-profile">
+          <div className="about-profile__top" aria-hidden="true">
+            <span>ID / 001</span>
+            <span className="about-profile__status"><span className="status-dot" />Active</span>
+          </div>
           {profile.photo_url ? (
-            <div
-              className="profile-photo"
-              style={{ backgroundImage: `url(${profile.photo_url})` }}
-              role="img"
-              aria-label={`Foto ${profile.full_name}`}
-            />
+            <div className="profile-photo-card">
+              <div
+                className="profile-photo-card__image"
+                style={{ backgroundImage: `url(${profile.photo_url})` }}
+                role="img"
+                aria-label={`Foto ${profile.full_name}`}
+              />
+              <div className="profile-photo-card__scan" aria-hidden="true" />
+              <span className="profile-photo-card__tag">PORTRAIT</span>
+            </div>
           ) : (
-            <div className="profile-monogram" aria-hidden="true">EB</div>
+            <div className="profile-monogram" aria-hidden="true"><span>EB</span></div>
           )}
           <div className="profile-meta">
             <span className="profile-meta__name">{profile.full_name}</span>
@@ -45,6 +53,10 @@ export default function AboutSection({ profile }: AboutSectionProps) {
             </span>
           </div>
           <p className="about-profile__bio">{profile.bio}</p>
+          <div className="about-profile__foot">
+            <a href={`mailto:${profile.email}`}>{profile.email}</a>
+            <span aria-hidden="true">Verified ✓</span>
+          </div>
         </Reveal>
       </div>
 
