@@ -697,10 +697,85 @@ canvas {
     var(--bg-deep);
 }
 
+.hero-portrait__reveal {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
 .hero-portrait__image {
   object-fit: cover;
   object-position: center 22%;
   filter: grayscale(0.35) contrast(1.06) brightness(0.94);
+  animation: portrait-drift 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.hero-portrait__scan {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  pointer-events: none;
+  animation: portrait-scan 6.5s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+.hero-portrait__scan::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  content: "";
+  background: var(--accent-signal);
+  box-shadow: 0 0 18px rgba(215, 250, 95, 0.55), 0 8px 32px rgba(215, 250, 95, 0.12);
+}
+
+.hero-portrait__reticle {
+  position: absolute;
+  top: 16%;
+  left: 50%;
+  width: 148px;
+  height: 148px;
+  margin-left: -74px;
+  border: 1px dashed rgba(215, 250, 95, 0.45);
+  border-radius: 50%;
+  animation: portrait-orbit 26s linear infinite;
+  will-change: transform;
+}
+
+.hero-portrait__reticle::before {
+  position: absolute;
+  top: 50%;
+  right: -10px;
+  left: -10px;
+  height: 1px;
+  content: "";
+  background: rgba(239, 238, 232, 0.25);
+}
+
+.hero-portrait__reticle::after {
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  left: 50%;
+  width: 1px;
+  content: "";
+  background: rgba(239, 238, 232, 0.25);
+}
+
+.hero-portrait__reticle span {
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  border-radius: 50%;
+  background: var(--accent-signal);
+  box-shadow: 0 0 12px rgba(215, 250, 95, 0.9);
 }
 
 .hero-portrait__scrim {
@@ -2892,6 +2967,38 @@ canvas {
   50% {
     transform: scale(1.04);
     opacity: 1;
+  }
+}
+
+@keyframes portrait-drift {
+  0% {
+    transform: scale(1.04) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.1) translate(-1.5%, 1%);
+  }
+  100% {
+    transform: scale(1.06) translate(1.5%, -1%);
+  }
+}
+
+@keyframes portrait-scan {
+  0% {
+    transform: translateY(-4px);
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0.15;
+  }
+}
+
+@keyframes portrait-orbit {
+  to {
+    transform: rotate(360deg);
   }
 }
 
