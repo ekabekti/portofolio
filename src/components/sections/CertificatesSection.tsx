@@ -34,6 +34,12 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
         </Reveal>
 
         <Reveal delay={0.1} className="certificate-list">
+          {certificates.length === 0 && (
+            <div className="empty-state">
+              <span className="mono-label">Credentials / empty</span>
+              <p>Belum ada kredensial yang ditampilkan.</p>
+            </div>
+          )}
           {certificates.map((certificate, index) => {
             const Row = certificate.credential_url ? "a" : "div";
             const linkProps = certificate.credential_url

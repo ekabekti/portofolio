@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Instrument_Serif, Space_Mono, Syne } from "next/font/google";
-import { profile } from "@/lib/data";
 import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
@@ -35,12 +34,13 @@ const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: `${profile.full_name} — Digital systems, made legible.`,
+  title: "Ekabekti — Digital systems, made legible.",
   description:
     "Portofolio Ekabekti, full-stack developer dan infrastructure architect yang membangun sistem digital untuk operasional yang lebih tenang, cepat, dan accountable.",
   openGraph: {
-    title: `${profile.full_name} — Digital systems, made legible.`,
-    description: profile.bio,
+    title: "Ekabekti — Digital systems, made legible.",
+    description:
+      "Portofolio Ekabekti, full-stack developer dan infrastructure architect yang membangun sistem digital untuk operasional yang lebih tenang, cepat, dan accountable.",
     siteName: "Ekabekti / Systems",
     locale: "id_ID",
     type: "website",

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { createBrowserSupabaseClient } from "@/lib/supabase/browser";
 import StorageUploader from "@/components/admin/StorageUploader";
 import {
-  profile as fallbackProfile,
+  blankProfile,
   type Certificate,
   type ContactMessage,
   type Profile,
@@ -66,7 +66,7 @@ export default function AdminDashboard({
 }: AdminDashboardProps) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<Tab>("overview");
-  const [profile, setProfile] = useState<Profile>(initialProfile ?? fallbackProfile);
+  const [profile, setProfile] = useState<Profile>(initialProfile ?? blankProfile);
   const [projects, setProjects] = useState(initialProjects);
   const [certificates, setCertificates] = useState(initialCertificates);
   const [messages, setMessages] = useState(initialMessages);

@@ -1,11 +1,4 @@
-import {
-  certificates as fallbackCertificates,
-  profile as fallbackProfile,
-  projects as fallbackProjects,
-  type Certificate,
-  type Profile,
-  type Project,
-} from "@/lib/data";
+import type { Certificate, Profile, Project } from "@/lib/data";
 import { getPublicSupabase, isSupabaseConfigured } from "@/lib/supabase/public";
 
 function normalizeSocialLinks(value: unknown): Profile["social_links"] {
@@ -47,20 +40,22 @@ function normalizeProfile(row: {
 }
 
 export interface PublicContent {
-  profile: Profile;
+  profile: Profile | null;
   projects: Project[];
   certificates: Certificate[];
+  configured: boolean;
 }
 
+/**
+ * Loads all public content from Supabase. No hardcoded fallback content:
+ * an empty database renders as empty sections, and a missing configuration
+ * renders as a setup notice.
+ */
 export async function getPublicContent(): Promise<PublicContent> {
   const supabase = getPublicSupabase();
 
   if (!isSupabaseConfigured() || !supabase) {
-    return {
-      profile: fallbackProfile,
-      projects: fallbackProjects,
-      certificates: fallbackCertificates,
-    };
+    return { profile: null, projects: [], certificates: [], configured: false };
   }
 
   const [profileResult, projectsResult, certificatesResult] = await Promise.all([
@@ -73,25 +68,33 @@ export async function getPublicContent(): Promise<PublicContent> {
     supabase.from("certificates").select("*").order("display_order", { ascending: true }),
   ]);
 
+  if (profileResult.error) console.error("Failed to load profile", profileResult.error.message);
+  if (projectsResult.error) console.error("Failed to load projects", projectsResult.error.message);
+  if (certificatesResult.error) console.error("Failed to load certificates", certificatesResult.error.message);
+
   return {
-    profile: profileResult.data ? normalizeProfile(profileResult.data) : fallbackProfile,
-    projects: projectsResult.data?.length ? (projectsResult.data as Project[]) : fallbackProjects,
-    certificates: certificatesResult.data?.length
-      ? (certificatesResult.data as Certificate[])
-      : fallbackCertificates,
+    profile: profileResult.data ? normalizeProfile(profileResult.data) : null,
+    projects: (projectsResult.data as Project[] | null) ?? [],
+    certificates: (certificatesResult.data as Certificate[] | null) ?? [],
+    configured: true,
   };
 }
 
 export async function getProjectBySlug(slug: string) {
   const supabase = getPublicSupabase();
-  if (!supabase) return fallbackProjects.find((project) => project.slug === slug) ?? null;
+  if (!isSupabaseConfigured() || !supabase) return null;
 
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("projects")
     .select("*")
     .eq("slug", slug)
     .eq("status", "published")
     .maybeSingle();
+
+  if (error) {
+    console.error("Failed to load project", slug, error.message);
+    return null;
+  }
 
   return (data as Project | null) ?? null;
 }

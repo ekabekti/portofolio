@@ -27,6 +27,12 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
         <span className="projects-intro__note">Private-sector clarity for public-scale operations.</span>
       </div>
 
+      {visibleProjects.length === 0 ? (
+        <Reveal className="empty-state">
+          <span className="mono-label">Case file / empty</span>
+          <p>Belum ada karya yang dipublikasikan. Kembali lagi nanti — atau mulai percakapan tentang sistem yang ingin kamu bangun.</p>
+        </Reveal>
+      ) : (
       <Reveal className="project-grid" y={30}>
         {visibleProjects.map((project, index) => (
           <article className="project-card" key={project.id} aria-labelledby={`project-title-${project.id}`}>
@@ -60,6 +66,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
           </article>
         ))}
       </Reveal>
+      )}
     </SectionWrapper>
   );
 }
