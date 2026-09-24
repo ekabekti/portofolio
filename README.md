@@ -16,7 +16,20 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can start editing the page by modifying `src/app/page.tsx`. The page auto-updates as you edit the file.
+
+## Supabase setup
+
+The public page uses the local fallback data in `src/lib/data.ts` until Supabase is configured. To enable the backend:
+
+1. Copy `.env.example` to `.env.local`.
+2. Fill `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, and `SUPABASE_SERVICE_ROLE_KEY`.
+3. Run `supabase/migrations/0001_initial.sql` in the Supabase SQL Editor.
+4. Create the four public storage buckets defined by the migration.
+5. Create one admin user in Supabase Auth, then visit `/admin/login`.
+
+The contact form posts to `/api/kontak`. Admin CRUD and uploads live under `/admin/dashboard`.
+
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
