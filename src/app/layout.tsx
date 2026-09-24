@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Instrument_Serif, Space_Mono, Syne } from "next/font/google";
 import { getSiteUrl } from "@/lib/site";
+import BootLoader from "@/components/ui/BootLoader";
 import "./globals.css";
 
 const syne = Syne({
@@ -64,6 +65,7 @@ export default function RootLayout({
   return (
     <html lang="id" className={`${syne.variable} ${dmSans.variable} ${instrumentSerif.variable} ${spaceMono.variable}`}>
       <body>
+        <BootLoader />
         <div className="site-grid" aria-hidden="true" />
         {children}
       </body>
