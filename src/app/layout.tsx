@@ -36,11 +36,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Ekabekti — Digital systems, made legible.",
   description:
-    "Portofolio Ekabekti, full-stack developer dan infrastructure architect yang membangun sistem digital untuk operasional yang lebih tenang, cepat, dan accountable.",
+    "Portofolio Ekabekti — app dev dan infra enthusiast yang merawat sistem digital agar operasional terasa lebih tenang dan mudah dirawat.",
   openGraph: {
     title: "Ekabekti — Digital systems, made legible.",
     description:
-      "Portofolio Ekabekti, full-stack developer dan infrastructure architect yang membangun sistem digital untuk operasional yang lebih tenang, cepat, dan accountable.",
+      "Portofolio Ekabekti — app dev dan infra enthusiast yang merawat sistem digital agar operasional terasa lebih tenang dan mudah dirawat.",
     siteName: "Ekabekti / Systems",
     locale: "id_ID",
     type: "website",

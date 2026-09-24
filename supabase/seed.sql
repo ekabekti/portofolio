@@ -12,7 +12,7 @@ create unique index if not exists certificates_credential_id_uidx
 insert into public.profile (full_name, tagline, bio, photo_url, cv_url, email, phone, location, social_links)
 select
   'Ekabekti',
-  'Full-Stack Developer & Infrastructure Architect',
+  'App Dev & Infra Enthusiast',
   'Membangun sistem monitoring dan infrastruktur digital untuk pemerintah kabupaten. Berpengalaman dalam pengembangan aplikasi web & mobile, sistem CCTV terpusat, dashboard monitoring distribusi pupuk, dan sistem kehadiran. Mengutamakan solusi yang skalabel, aman, dan mudah dikelola.',
   '',
   '',

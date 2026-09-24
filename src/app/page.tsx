@@ -21,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
     return {
       title: "Ekabekti — Digital systems, made legible.",
       description:
-        "Portofolio Ekabekti, full-stack developer dan infrastructure architect.",
+        "Portofolio Ekabekti — app dev dan infra enthusiast.",
     };
   }
   return {
