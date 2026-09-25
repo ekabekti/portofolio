@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import SectionWrapper, { SectionTitle } from "@/components/ui/SectionWrapper";
 import Reveal from "@/components/ui/Reveal";
 import Badge from "@/components/ui/Badge";
@@ -5,12 +8,16 @@ import ProjectVisual from "@/components/projects/ProjectVisual";
 import Link from "next/link";
 import type { Project } from "@/lib/data";
 
+const INITIAL_COUNT = 3;
+
 interface ProjectsSectionProps {
   projects: Project[];
 }
 
 export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   const visibleProjects = projects.filter((project) => project.status === "published");
+  const [expanded, setExpanded] = useState(false);
+  const displayedProjects = expanded ? visibleProjects : visibleProjects.slice(0, INITIAL_COUNT);
 
   return (
     <SectionWrapper id="proyek" className="projects-section">
@@ -34,7 +41,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
         </Reveal>
       ) : (
       <Reveal className="project-grid" y={30}>
-        {visibleProjects.map((project, index) => (
+        {displayedProjects.map((project, index) => (
           <article className="project-card" key={project.id} aria-labelledby={`project-title-${project.id}`}>
             <div className="project-card__visual">
               <ProjectVisual slug={project.slug} index={index + 1} coverImageUrl={project.cover_image_url || undefined} />
@@ -66,6 +73,19 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
           </article>
         ))}
       </Reveal>
+      )}
+      {visibleProjects.length > INITIAL_COUNT && (
+        <Reveal className="projects-toggle" y={16}>
+          <button
+            type="button"
+            className="toggle-button"
+            onClick={() => setExpanded((current) => !current)}
+            aria-expanded={expanded}
+          >
+            <span>{expanded ? "See less" : `See more (${visibleProjects.length - INITIAL_COUNT} more)`}</span>
+            <span className={`toggle-button__chevron ${expanded ? "is-open" : ""}`} aria-hidden="true">⌄</span>
+          </button>
+        </Reveal>
       )}
     </SectionWrapper>
   );

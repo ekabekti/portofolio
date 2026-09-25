@@ -8,6 +8,7 @@ export interface Profile {
   tagline: string;
   bio: string;
   photo_url: string;
+  hero_image_url: string;
   cv_url: string;
   email: string;
   phone: string | null;
@@ -66,6 +67,7 @@ export const blankProfile: Profile = {
   tagline: "",
   bio: "",
   photo_url: "",
+  hero_image_url: "",
   cv_url: "",
   email: "",
   phone: null,

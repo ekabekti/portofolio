@@ -19,6 +19,7 @@ function normalizeProfile(row: {
   tagline: string;
   bio: string;
   photo_url: string;
+  hero_image_url: string;
   cv_url: string;
   email: string;
   phone: string | null;
@@ -31,6 +32,7 @@ function normalizeProfile(row: {
     tagline: row.tagline,
     bio: row.bio,
     photo_url: row.photo_url,
+    hero_image_url: row.hero_image_url ?? "",
     cv_url: row.cv_url,
     email: row.email,
     phone: row.phone,

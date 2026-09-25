@@ -114,6 +114,7 @@ export default function AdminDashboard({
       phone: profile.phone,
       location: profile.location,
       photo_url: profile.photo_url,
+      hero_image_url: profile.hero_image_url,
       cv_url: profile.cv_url,
       social_links: profile.social_links,
     };
@@ -336,7 +337,8 @@ export default function AdminDashboard({
               <div className="form-field admin-editor__wide"><label htmlFor="profile-tagline">Tagline</label><input id="profile-tagline" value={profile.tagline} onChange={(event) => setProfile({ ...profile, tagline: event.target.value })} required /></div>
               <div className="form-field"><label htmlFor="profile-location">Location</label><input id="profile-location" value={profile.location} onChange={(event) => setProfile({ ...profile, location: event.target.value })} /></div>
               <div className="form-field"><label htmlFor="profile-phone">Nomor HP / WhatsApp</label><input id="profile-phone" value={profile.phone ?? ""} onChange={(event) => setProfile({ ...profile, phone: event.target.value })} placeholder="+62 ..." autoComplete="tel" /></div>
-              <div className="form-field"><label htmlFor="profile-photo">Photo URL</label><input id="profile-photo" value={profile.photo_url} onChange={(event) => setProfile({ ...profile, photo_url: event.target.value })} placeholder="Supabase public URL" /><StorageUploader bucket="profile-photos" value={profile.photo_url} onChange={(url) => setProfile({ ...profile, photo_url: url })} label="Upload portrait" accept="image/*" maxSizeMb={5} /></div>
+              <div className="form-field"><label htmlFor="profile-photo">Photo URL (kartu profil)</label><input id="profile-photo" value={profile.photo_url} onChange={(event) => setProfile({ ...profile, photo_url: event.target.value })} placeholder="Supabase public URL" /><StorageUploader bucket="profile-photos" value={profile.photo_url} onChange={(url) => setProfile({ ...profile, photo_url: url })} label="Upload portrait" accept="image/*" maxSizeMb={5} /></div>
+              <div className="form-field"><label htmlFor="profile-hero">Hero image URL (tampilan hero)</label><input id="profile-hero" value={profile.hero_image_url} onChange={(event) => setProfile({ ...profile, hero_image_url: event.target.value })} placeholder="Supabase public URL — kosongkan untuk pakai foto profil" /><StorageUploader bucket="profile-photos" value={profile.hero_image_url} onChange={(url) => setProfile({ ...profile, hero_image_url: url })} label="Upload hero image" accept="image/*" maxSizeMb={5} aspects={[{ label: "16 : 10", value: 16 / 10 }, { label: "16 : 9", value: 16 / 9 }, { label: "Bebas", value: null }]} /></div>
               <div className="form-field admin-editor__wide"><label htmlFor="profile-bio">Bio</label><textarea id="profile-bio" rows={5} value={profile.bio} onChange={(event) => setProfile({ ...profile, bio: event.target.value })} /></div>
               <div className="form-field"><label htmlFor="profile-linkedin">LinkedIn</label><input id="profile-linkedin" value={profile.social_links.linkedin ?? ""} onChange={(event) => setProfile({ ...profile, social_links: { ...profile.social_links, linkedin: event.target.value } })} /></div>
               <div className="form-field"><label htmlFor="profile-github">GitHub</label><input id="profile-github" value={profile.social_links.github ?? ""} onChange={(event) => setProfile({ ...profile, social_links: { ...profile.social_links, github: event.target.value } })} /></div>

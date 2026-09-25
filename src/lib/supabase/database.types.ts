@@ -10,6 +10,7 @@ export interface Database {
           tagline: string;
           bio: string;
           photo_url: string;
+          hero_image_url: string;
           cv_url: string;
           email: string;
           phone: string | null;
@@ -23,6 +24,7 @@ export interface Database {
           tagline: string;
           bio: string;
           photo_url?: string;
+          hero_image_url?: string;
           cv_url?: string;
           email: string;
           phone?: string | null;
@@ -36,6 +38,7 @@ export interface Database {
           tagline?: string;
           bio?: string;
           photo_url?: string;
+          hero_image_url?: string;
           cv_url?: string;
           email?: string;
           phone?: string | null;

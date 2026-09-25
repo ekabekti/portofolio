@@ -9,11 +9,12 @@ create unique index if not exists certificates_credential_id_uidx
   where credential_id is not null;
 
 -- 1. Profile (single row: inserted only when the table is still empty)
-insert into public.profile (full_name, tagline, bio, photo_url, cv_url, email, phone, location, social_links)
+insert into public.profile (full_name, tagline, bio, photo_url, hero_image_url, cv_url, email, phone, location, social_links)
 select
   'Ekabekti',
   'App Dev & Infra Enthusiast',
   'Membangun sistem monitoring dan infrastruktur digital untuk pemerintah kabupaten. Berpengalaman dalam pengembangan aplikasi web & mobile, sistem CCTV terpusat, dashboard monitoring distribusi pupuk, dan sistem kehadiran. Mengutamakan solusi yang skalabel, aman, dan mudah dikelola.',
+  '',
   '',
   '',
   'ekabekti@example.com',

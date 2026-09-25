@@ -13,18 +13,17 @@ interface HeroArtProps {
 }
 
 /**
- * Hero visual slot.
+ * Hero visual slot. Uses the dedicated `hero_image_url` field so the hero
+ * visual and the profile portrait card can show different images.
  *
- * - `auto` (default): shows `profile.photo_url` when set, otherwise the SignalField animation.
+ * - `auto` (default): shows `hero_image_url`, falling back to `photo_url`,
+ *   otherwise the SignalField animation.
  * - `animation`: always shows the generative canvas.
- * - `photo`: always shows the portrait. Falls back to animation when no photo URL exists.
- *
- * To use your own photo, put the file in `public/` (for example
- * `public/profile-ekabekti.jpg`) and set `photo_url` to `/profile-ekabekti.jpg`,
- * or upload it via `/admin/dashboard` profile photo uploader.
+ * - `photo`: always shows the hero image. Falls back to animation when empty.
  */
 export default function HeroArt({ profile, variant = "auto" }: HeroArtProps) {
-  const hasPhoto = Boolean(profile.photo_url);
+  const heroSrc = profile.hero_image_url || profile.photo_url;
+  const hasPhoto = Boolean(heroSrc);
   const showPhoto = variant === "photo" ? hasPhoto : variant === "animation" ? false : hasPhoto;
   const reducedMotion = useReducedMotion();
 
@@ -42,7 +41,7 @@ export default function HeroArt({ profile, variant = "auto" }: HeroArtProps) {
             aria-hidden="true"
           >
             <Image
-              src={profile.photo_url}
+              src={heroSrc}
               alt={`Portrait of ${profile.full_name}`}
               fill
               sizes="(max-width: 980px) 100vw, 520px"
